@@ -33,4 +33,30 @@ const getMovies = ({ response }: { response: any }) => {
   };
 };
 
-export { getMovies };
+// @desc get one movie
+// @route GET /api/movies/:id
+const getMovie = ({
+  params,
+  response,
+}: {
+  params: { id: string };
+  response: any;
+}) => {
+  const movie: Movie | undefined = movies.find((el) => el.id === params.id);
+
+  if (movie) {
+    response.status = 200;
+    response.body = {
+      success: true,
+      data: movie,
+    };
+  } else {
+    response.status = 404;
+    response.body = {
+      success: false,
+      msg: "No movie found",
+    };
+  }
+};
+
+export { getMovies, getMovie };
